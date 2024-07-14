@@ -1,4 +1,5 @@
 # confフォルダ対象外
 conf/
 
-
+# note対象外
+note.txt
