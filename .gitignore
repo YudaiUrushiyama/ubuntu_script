@@ -3,3 +3,6 @@ conf/
 
 # note対象外
 note.txt
+=======
+# tmpフォルダ対象外
+tmp/
