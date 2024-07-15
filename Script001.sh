@@ -17,7 +17,7 @@ if [ -r ${CONFIG_FILE} ]; then
   # SWITCHBOT_TOKEN
   # SWITCHBOT_SERCRET
 else
-  echo "${CONFIG_FILE} が存在しません。"
+  logger -i "${CONFIG_FILE} が存在しません。"
   exit 9
 fi
 
@@ -55,7 +55,7 @@ done
 
 # リトライ後も期待の応答でない場合は処理終了
 if [ "$message" != "success" ]; then
-    echo "デバイスIDを取得できませんでした。"
+    looger -i "デバイスIDを取得できませんでした。"
     exit 9
 fi
 
@@ -79,7 +79,7 @@ while [ $RETRY -lt 3 ]; do
   message=$(echo "$status" | jq -r '.message')
   # echo $message
   # メッセージ確認
-  if [ "$message" == "success" ]; then
+  if [ "$message" != "success" ]; then
     break
   fi
 
@@ -89,8 +89,8 @@ while [ $RETRY -lt 3 ]; do
 done
 
 # リトライ後も期待の応答でない場合は処理終了
-if [ "$message" != "success" ]; then
-    echo "温湿度情報を取得できませんでした。"
+if [ "$message" == "success" ]; then
+    logger -i "温湿度情報を取得できませんでした。"
     exit 9
 fi
 
